@@ -1,0 +1,144 @@
+<div class="register-container">
+  <div class="register-card">
+    <div class="register-header">
+      <h2>Create Account</h2>
+      <p>Join us today</p>
+    </div>
+
+    <form
+      [formGroup]="registerForm"
+      (ngSubmit)="onSubmit()"
+      class="register-form"
+    >
+      <!-- Name Field -->
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input
+          type="text"
+          id="name"
+          formControlName="name"
+          class="form-control"
+          [class.is-invalid]="f['name'].invalid && f['name'].touched"
+          placeholder="Enter your full name"
+        />
+        <div
+          class="invalid-feedback"
+          *ngIf="f['name'].invalid && f['name'].touched"
+        >
+          <div *ngIf="f['name'].errors?.['required']">Name is required</div>
+          <div *ngIf="f['name'].errors?.['minlength']">
+            Name must be at least 2 characters
+          </div>
+          <div *ngIf="f['name'].errors?.['maxlength']">
+            Name cannot exceed 255 characters
+          </div>
+        </div>
+      </div>
+
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          class="form-control"
+          [class.is-invalid]="f['email'].invalid && f['email'].touched"
+          placeholder="Enter your email"
+        />
+        <div
+          class="invalid-feedback"
+          *ngIf="f['email'].invalid && f['email'].touched"
+        >
+          <div *ngIf="f['email'].errors?.['required']">Email is required</div>
+          <div *ngIf="f['email'].errors?.['email']">
+            Please enter a valid email
+          </div>
+        </div>
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          class="form-control"
+          [class.is-invalid]="f['password'].invalid && f['password'].touched"
+          placeholder="Enter your password"
+        />
+        <div
+          class="invalid-feedback"
+          *ngIf="f['password'].invalid && f['password'].touched"
+        >
+          <div *ngIf="f['password'].errors?.['required']">
+            Password is required
+          </div>
+          <div *ngIf="f['password'].errors?.['minlength']">
+            Password must be at least 8 characters
+          </div>
+        </div>
+      </div>
+
+      <!-- Confirm Password Field -->
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          formControlName="confirmPassword"
+          class="form-control"
+          [class.is-invalid]="
+            f['confirmPassword'].invalid && f['confirmPassword'].touched
+          "
+          placeholder="Confirm your password"
+        />
+        <div
+          class="invalid-feedback"
+          *ngIf="f['confirmPassword'].invalid && f['confirmPassword'].touched"
+        >
+          <div *ngIf="f['confirmPassword'].errors?.['required']">
+            Please confirm your password
+          </div>
+          <div *ngIf="f['confirmPassword'].errors?.['passwordMismatch']">
+            Passwords do not match
+          </div>
+        </div>
+      </div>
+
+      <!-- Success Message -->
+      <div class="alert alert-success" *ngIf="successMessage">
+        {{ successMessage }}
+      </div>
+
+      <!-- Error Message -->
+      <div class="alert alert-danger" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="btn btn-primary btn-block"
+        [disabled]="isLoading"
+      >
+        <span *ngIf="isLoading" class="spinner"></span>
+        {{ isLoading ? "Creating Account..." : "Create Account" }}
+      </button>
+    </form>
+
+    <!-- Login Link -->
+    <div class="register-footer">
+      <p>
+        Already have an account?
+        <a
+          href="javascript:void(0)"
+          (click)="navigateToLogin(); $event.preventDefault()"
+          class="login-link"
+          >Sign in here</a
+        >
+      </p>
+    </div>
+  </div>
+</div>

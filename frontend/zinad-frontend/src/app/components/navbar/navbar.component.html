@@ -1,0 +1,84 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    <!-- Brand/Logo -->
+    <div class="navbar-brand" (click)="navigateToHome()">
+      <h3>ZinadAuth</h3>
+    </div>
+
+    <!-- Navigation Items -->
+    <div class="navbar-nav">
+      <!-- Authenticated User Menu -->
+      <div *ngIf="isAuthenticated && currentUser" class="user-menu">
+        <div class="user-info" (click)="toggleDropdown()">
+          <div class="user-avatar">
+            {{ getUserInitials() }}
+          </div>
+          <span class="user-name">{{ currentUser.name }}</span>
+          <svg
+            class="dropdown-icon"
+            [class.rotated]="isDropdownOpen"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polyline points="6,9 12,15 18,9"></polyline>
+          </svg>
+        </div>
+
+        <!-- Dropdown Menu -->
+        <div
+          class="dropdown-menu"
+          [class.show]="isDropdownOpen"
+          (click)="closeDropdown()"
+        >
+          <div class="dropdown-header">
+            <div class="user-details">
+              <div class="user-name-large">{{ currentUser.name }}</div>
+              <div class="user-email">{{ currentUser.email }}</div>
+            </div>
+          </div>
+          <div class="dropdown-divider"></div>
+          <button class="dropdown-item" (click)="logout()">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16,17 21,12 16,7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+            Logout
+          </button>
+        </div>
+      </div>
+
+      <!-- Guest Menu -->
+      <div *ngIf="!isAuthenticated" class="guest-menu">
+        <button class="btn btn-outline" (click)="navigateToLogin()">
+          Sign In
+        </button>
+        <button class="btn btn-primary" (click)="navigateToRegister()">
+          Sign Up
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Backdrop for dropdown -->
+  <div
+    *ngIf="isDropdownOpen"
+    class="dropdown-backdrop"
+    (click)="closeDropdown()"
+  ></div>
+</nav>
